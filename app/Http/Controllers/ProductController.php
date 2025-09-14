@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Yajra\DataTables\Facades\DataTables;
 
 class ProductController extends Controller
 {
@@ -13,8 +14,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all()->toArray();
-        return Inertia::render('Products', ['products' => $products]);
+        return Inertia::render('Products/index');
         
     }
 
@@ -64,5 +64,10 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         //
+    }
+
+    public function dataTable()
+    {
+        return DataTables::of(Product::query())->make(true);
     }
 }
